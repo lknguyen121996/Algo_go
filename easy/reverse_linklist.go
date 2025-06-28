@@ -28,9 +28,10 @@ func main() {
 	head.next.next.next.next.next.next.next.next = &Node{data: 9}
 	head.next.next.next.next.next.next.next.next.next = &Node{data: 10}
 	fmt.Println(toList(head))
-	fmt.Println(toList(reverseLinkList(head)))
+	fmt.Println(toList(reverseLinkList2(head)))
 }
 
+// bad solution
 func reverseLinkList(head *Node) *Node {
 	if head == nil || head.next == nil {
 		return head
@@ -50,4 +51,25 @@ func reverseLinkList(head *Node) *Node {
 	right.next = left
 	origin.next = nil
 	return right
+}
+
+// good solution use recursion
+func reverseLinkList2(head *Node) *Node {
+	if head == nil{
+		return nil // now head is the tail
+	}
+	newHead := head
+	//  |
+	//  1 -> 2 -> 3 -> 4 -> 5 -> nil
+	if head.next != nil{
+		newHead = reverseLinkList2(head.next)
+		// newhead = 5 -> nil
+		//                 |
+		//  1 -> 2 -> 3 -> 4 -> 5 -> nil
+		head.next.next = head // reverse the link
+		// 4 -> 5 -> nil => 4 -> 5 -> 4
+	}
+	// 5 -> 4 -> nil
+	head.next = nil // set the tail's next to nil
+	return newHead // 4
 }
