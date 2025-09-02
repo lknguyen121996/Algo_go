@@ -29,6 +29,17 @@ func IsSubsequence(s, t string) bool {
 	return result
 }
 
+func IsSubsequenceEnforce(s, t string) bool {
+	i, j := 0, 0
+	for i < len(s) && j < len(t) {
+		if s[i] == t[j] {
+			i++
+		}
+		j++
+	}
+	return i == len(s)
+}
+
 func main() {
 	type Test struct {
 		s      string
@@ -42,6 +53,11 @@ func main() {
 	}
 	for _, test := range tests {
 		if result := IsSubsequence(test.s, test.t); result != test.result {
+			fmt.Printf("Input: s: %v, t: %v \n", test.s, test.t)
+			fmt.Printf("Result: %v \n", result)
+			fmt.Printf("Expected Result: %v \n", test.result)
+		}
+		if result := IsSubsequenceEnforce(test.s, test.t); result != test.result {
 			fmt.Printf("Input: s: %v, t: %v \n", test.s, test.t)
 			fmt.Printf("Result: %v \n", result)
 			fmt.Printf("Expected Result: %v \n", test.result)
